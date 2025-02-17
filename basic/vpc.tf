@@ -29,6 +29,15 @@ resource "aws_subnet" "AppSubnet2" {
   }
 }
 
+resource "aws_db_subnet_group" "app_db_subnet_group" {
+  name       = "app-db-subnet-group"
+  subnet_ids = [aws_subnet.AppSubnet1.id, aws_subnet.AppSubnet2.id]  
+
+  tags = {
+    Name = "AppDBSubnetGroup"
+  }
+}
+
 resource "aws_security_group" "WebTrafficSG" {
   vpc_id = aws_vpc.AppVPC.id
   name   = "WebTrafficSG"
